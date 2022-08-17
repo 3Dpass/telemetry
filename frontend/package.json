@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "author": "Parity Technologies Ltd. <admin@parity.io>",
   "license": "GPL-3.0",
-  "description": "3Dpass Telemetry frontend",
+  "description": "3DPass Telemetry frontend",
   "scripts": {
     "precommit": "lint-staged",
     "start": "react-scripts-ts start",
