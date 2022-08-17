@@ -11,7 +11,7 @@ services:
       - /var/run:uid=101,gid=101
       - /app/tmp:uid=101,gid=101
     environment:
-      SUBSTRATE_TELEMETRY_URL: ws://localhost:8000/feed
+      SUBSTRATE_TELEMETRY_URL: wss://feed.telemetry.3dpass.org/feed
     ports:
       - 3000:8000
     expose:
@@ -25,13 +25,13 @@ services:
     read_only: true
     command: [
       'telemetry_shard',
-      '--listen', '0.0.0.0:8001',
-      '--core', 'http://telemetry-backend-core:8000/shard_submit'
+      '--listen', '0.0.0.0:9001',
+      '--core', 'http://telemetry-backend-core:9000/shard_submit'
       ]
     ports:
-      - 8001:8001
+      - 9001:9001
     expose:
-      - 8001
+      - 9001
     restart: unless-stopped
 
   telemetry-backend-core:
@@ -41,11 +41,10 @@ services:
     read_only: true
     command: [
       'telemetry_core',
-      '--listen', '0.0.0.0:8000'
+      '--listen', '0.0.0.0:9000'
       ]
     ports:
-      - 8000:8000
+      - 9000:9000
     expose:
-      - 8000
+      - 9000
     restart: unless-stopped
-    
