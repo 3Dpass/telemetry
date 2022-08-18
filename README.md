@@ -110,6 +110,17 @@ docker build -t parity/substrate-telemetry-frontend .
 The easiest way to run the backend and frontend images is to use `docker-compose`. To do this, run `docker-compose up` in the root of this repository to build and run the images. Once running, you can view the UI by navigating a browser to `http://localhost:3000`.
 
 To connect a substrate node and have it send telemetry to this running instance, you have to tell it where to send telemetry by appending the argument `--telemetry-url 'ws://localhost:8001/submit 0'` (see "Terminal 4 - Node" above).
+### Known Issue related to `docker-compose`
+If you have issue under building 
+--- Cannot autolaunch D-bus without X11 $Display -- related to servers without GUI interface 
+We can apply this fix execute below commands
+```
+sudo apt-get install pass gnupg2
+# create gpg2 key
+gpg2 - gen-key
+# create the password store using the gpg user id
+pass init $gpg_id
+```
 
 ### Run the backend and frontend using `docker`
 
