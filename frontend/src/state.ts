@@ -20,7 +20,7 @@ import { Column } from './components/List';
 
 export const PINNED_CHAINS = {
   // 3DPass
-  '0x6dd6b6f6af46e9a21ebd99d28768d1978d88680897a7ca86a2cf0bf0664e5ca1': 1,
+  '0x6c5894837ad89b6d92b114a2fb3eafa8fe3d26a54848e3447015442cd6ef4e66': 1,
   '0xd07b37f1046f061b5b17cef78fd171f1a9386d2cd8f465312877a7cbe5e301e5': 2,
 };
 
