@@ -82,6 +82,9 @@ struct Opts {
     /// How many nodes from third party chains are allowed to connect before we prevent connections from them.
     #[structopt(long, default_value = "1000")]
     max_third_party_nodes: usize,
+    /// Flag to expose the IP addresses of all connected nodes to the feed subscribers.
+    #[structopt(long)]
+    pub expose_node_ips: bool,
 }
 
 fn main() {
@@ -132,6 +135,7 @@ async fn start_server(num_aggregators: usize, opts: Opts) -> anyhow::Result<()> 
             max_queue_len: aggregator_queue_len,
             denylist: opts.denylist,
             max_third_party_nodes: opts.max_third_party_nodes,
+            expose_node_ips: opts.expose_node_ips,
         },
     )
     .await?;
@@ -460,23 +464,30 @@ where
                     .await
                 {
                     Err(_) => {
-                        log::warn!("Closing feed websocket that was too slow to keep up (too slow to send messages)");
+                        log::debug!("Closing feed websocket that was too slow to keep up (too slow to send messages)");
+                        break 'outer;
+                    }
+                    Ok(Err(soketto::connection::Error::Closed)) => {
                         break 'outer;
                     }
                     Ok(Err(e)) => {
-                        log::warn!("Closing feed websocket due to error sending data: {}", e);
+                        log::debug!("Closing feed websocket due to error sending data: {}", e);
                         break 'outer;
                     }
                     Ok(_) => {}
                 }
             }
+
             match tokio::time::timeout_at(message_send_deadline, ws_send.flush()).await {
                 Err(_) => {
-                    log::warn!("Closing feed websocket that was too slow to keep up (too slow to flush messages)");
+                    log::debug!("Closing feed websocket that was too slow to keep up (too slow to flush messages)");
+                    break;
+                }
+                Ok(Err(soketto::connection::Error::Closed)) => {
                     break;
                 }
                 Ok(Err(e)) => {
-                    log::warn!("Closing feed websocket due to error flushing data: {}", e);
+                    log::debug!("Closing feed websocket due to error flushing data: {}", e);
                     break;
                 }
                 Ok(_) => {}
