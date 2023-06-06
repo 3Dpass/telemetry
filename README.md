@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains the backend ingestion server for 3DPass Telemetry (which itself is comprised of two binaries; `telemetry_shard` and `telemetry_core`) as well as the Frontend you typically see running at [telemetry.3dpass.org](https://telemetry.3dpass.org).
+This repository contains the backend ingestion server for 3DPass Telemetry (which itself is comprised of two binaries; `telemetry_shard` and `telemetry_core`) as well as the Frontend you typically see running at [telemetry.3dpass.org](https://telemetry.3dpscan.io).
 
 The backend is a Rust project and the frontend is React/Typescript project.
 
