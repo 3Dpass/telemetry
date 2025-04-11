@@ -13,9 +13,7 @@ services:
     environment:
       SUBSTRATE_TELEMETRY_URL: wss://feed.telemetry.3dpass.org/feed
     ports:
-      - 3000:8087
-    expose:
-      - 3000
+      - '127.0.0.1:8087:8000'
     restart: unless-stopped
 
   telemetry-backend-shard:
@@ -27,11 +25,9 @@ services:
       'telemetry_shard',
       '--listen', '0.0.0.0:9001',
       '--core', 'http://telemetry-backend-core:9000/shard_submit'
-      ]
+    ]
     ports:
-      - 9001:8088
-    expose:
-      - 9001
+      - '127.0.0.1:8088:9001'
     restart: unless-stopped
 
   telemetry-backend-core:
@@ -42,9 +38,7 @@ services:
     command: [
       'telemetry_core',
       '--listen', '0.0.0.0:9000'
-      ]
+    ]
     ports:
-      - 9000:8089
-    expose:
-      - 9000
+      - '127.0.0.1:8089:9000'
     restart: unless-stopped
