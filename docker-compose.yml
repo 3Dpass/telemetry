@@ -11,7 +11,7 @@ services:
       - /var/run:uid=101,gid=101
       - /app/tmp:uid=101,gid=101
     environment:
-      SUBSTRATE_TELEMETRY_URL: wss://feed.telemetry.3dpass.org/feed
+      SUBSTRATE_TELEMETRY_URL: wss://telemetry-feed.3dpass.org/feed
     ports:
       - '127.0.0.1:8087:8000'
     restart: unless-stopped
